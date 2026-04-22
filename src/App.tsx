@@ -118,6 +118,18 @@ function App() {
     }
   };
 
+  const inputProps = {
+    enterKeyHint: 'done' as const,
+    // Selects the texts on focus
+    onFocus: (e: React.FocusEvent<HTMLInputElement>) => {
+      e.target.select();
+    },
+    // Blurs the input field on enter key
+    onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Enter') (e.target as HTMLElement).blur();
+    },
+  };
+
   return (
     <div className="min-h-screen p-4 md:p-8">
       <div className="max-w-4xl mx-auto space-y-6">
@@ -130,8 +142,8 @@ function App() {
           </div>
         </header>
 
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6 order-2 sm:order-1">
             <h2 className="text-lg font-semibold border-b border-slate-200 pb-2 flex items-center gap-2 text-purple-900">
               <Map className="w-5 h-5" /> Primary Parameters
             </h2>
@@ -156,7 +168,7 @@ function App() {
                     step="1"
                     value={distance}
                     onChange={(e) => setDistance(e.target.value)}
-                    onFocus={(e) => e.target.select()}
+                    {...inputProps}
                     className="w-full pl-4 pr-12 py-3 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all outline-none"
                   />
                   <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 font-medium">
@@ -174,9 +186,9 @@ function App() {
                     step="0.1"
                     min="0"
                     value={efficiency}
-                    onFocus={(e) => e.target.select()}
                     onChange={(e) => setEfficiency(e.target.value)}
-                    className="flex-1 min-w-40 px-4 py-3 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all outline-none"
+                    {...inputProps}
+                    className="flex-1 min-w-1/2 px-4 py-3 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all outline-none"
                   />
                   <select
                     value={efficiencyUnit}
@@ -191,7 +203,7 @@ function App() {
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4 order-1 sm:order-2">
             <div className="flex justify-between items-center border-b border-slate-200 pb-2">
               <h2 className="text-lg font-semibold flex items-center gap-2 text-purple-900">
                 <Fuel className="w-5 h-5" /> Fuel Grades
@@ -210,14 +222,15 @@ function App() {
                     <input
                       type="text" value={grade.name}
                       onChange={(e) => updateFuelGrade(grade.id, 'name', e.target.value)}
+                      {...inputProps}
                       className="w-full text-sm p-1 border-b border-slate-200 bg-transparent outline-none focus:border-purple-500"
                     />
                     <div className="flex items-center text-sm">
                       <span className="mr-1 text-slate-500">NT$</span>
                       <input
                         type="number" step="0.1" value={grade.price}
-                        onFocus={(e) => e.target.select()}
                         onChange={(e) => updateFuelGrade(grade.id, 'price', e.target.value)}
+                        {...inputProps}
                         className="w-20 p-1 border-b border-slate-200 bg-transparent outline-none focus:border-purple-500"
                       />
                       <span className="ml-1 text-slate-500">/ L</span>
@@ -239,7 +252,7 @@ function App() {
             </div>
           </div>
 
-          <div className="md:col-span-2 flex justify-end px-2">
+          <div className="sm:col-span-2 flex justify-end px-2 order-3">
             <label className="flex items-center gap-2 text-sm text-slate-600 cursor-pointer hover:text-purple-700 transition-colors">
               <input
                 type="checkbox"
@@ -252,7 +265,7 @@ function App() {
           </div>
         </div>
 
-        <div className="bg-purple-50 p-6 rounded-2xl border border-purple-100">
+        <div className="bg-purple-50 p-3 md:p-6 rounded-2xl border border-purple-100">
           <h2 className="text-xl font-bold text-purple-900 mb-4">Calculated Projections</h2>
           {(parseFloat(distance) <= 0 || parseFloat(efficiency) <= 0 || isNaN(parseFloat(distance)) || isNaN(parseFloat(efficiency)))
             ? (
@@ -260,7 +273,7 @@ function App() {
                 * Awaiting valid inputs for distance and efficiency.
               </div>
             ) : (
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4">
                 {results.map(res => (
                   <div key={`result-${res.id}`} className="bg-white p-5 rounded-xl shadow-sm border border-purple-100 relative overflow-hidden group hover:border-purple-300 transition-colors">
                     <div className="absolute top-0 left-0 w-1 h-full bg-purple-500"></div>
