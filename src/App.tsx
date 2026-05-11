@@ -132,9 +132,9 @@ function App() {
 
   return (
     <div className="min-h-screen p-4 md:p-8">
-      <div className="max-w-4xl mx-auto space-y-6">
-        <header className="bg-purple-700 text-white p-6 rounded-2xl shadow-md flex items-center space-x-4">
-          <div className="bg-purple-600 p-4 rounded-full">
+      <div className="max-w-4xl mx-auto space-y-4">
+        <header className="bg-purple-700 text-white p-4 sm:p-6 rounded-2xl shadow-md flex items-center space-x-4">
+          <div className="bg-purple-600 p-2 sm:p-4 rounded-full">
             <Calculator size={32} />
           </div>
           <div>
@@ -143,7 +143,7 @@ function App() {
         </header>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6 order-2 sm:order-1">
+          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4 order-2 sm:order-1">
             <h2 className="text-lg font-semibold border-b border-slate-200 pb-2 flex items-center gap-2 text-purple-900">
               <Map className="w-5 h-5" /> Primary Parameters
             </h2>
@@ -193,7 +193,7 @@ function App() {
                   <select
                     value={efficiencyUnit}
                     onChange={handleUnitChange}
-                    className="flex-none bg-slate-50 border border-slate-300 rounded-xl px-2 outline-none cursor-pointer"
+                    className="flex-none bg-slate-50 border border-slate-300 rounded-xl px-2 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all outline-none cursor-pointer"
                   >
                     <option value="l/100km">L / 100km</option>
                     <option value="km/l">km / L</option>
