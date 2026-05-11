@@ -188,6 +188,23 @@ function App() {
                     km
                   </span>
                 </div>
+                {/* Quick-Adjust Buttons for Distance */}
+                <div className="flex gap-2 mt-2">
+                  {[-10, -1, 1, 10].map((val) => (
+                    <button
+                      key={`dist-${val}`}
+                      type="button"
+                      tabIndex={-1}
+                      onClick={() => {
+                        const current = parseFloat(distance) || 0;
+                        setDistance(Math.max(0, current + val).toString());
+                      }}
+                      className="flex-1 bg-purple-100 hover:bg-purple-200 active:bg-purple-300 text-purple-700 font-semibold py-3 md:py-1 rounded-xl transition-colors touch-manipulation text-sm cursor-pointer"
+                    >
+                      {val > 0 ? `+${val}` : val}
+                    </button>
+                  ))}
+                </div>
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-600 mb-1 flex items-center gap-1">
@@ -212,6 +229,24 @@ function App() {
                     <option value="km/l">km / L</option>
                   </select>
                 </div>
+              </div>
+              {/* Quick-Adjust Buttons for Efficiency */}
+              <div className="flex gap-2 mt-2">
+                {[-1, -0.1, 0.1, 1].map((val) => (
+                  <button
+                    key={`eff-${val}`}
+                    type="button"
+                    tabIndex={-1}
+                    onClick={() => {
+                      const current = parseFloat(efficiency) || 0;
+                      // Applying toFixed(1) to avoid floating point math anomalies
+                      setEfficiency(Math.max(0, parseFloat((current + val).toFixed(1))).toString());
+                    }}
+                    className="flex-1 bg-purple-100 hover:bg-purple-200 active:bg-purple-300 text-purple-700 font-semibold py-3 md:py-1 rounded-xl transition-colors touch-manipulation text-sm cursor-pointer"
+                  >
+                    {val > 0 ? `+${val}` : val}
+                  </button>
+                ))}
               </div>
             </div>
           </div>
