@@ -133,12 +133,25 @@ function App() {
   return (
     <div className="min-h-screen p-4 md:p-8">
       <div className="max-w-4xl mx-auto space-y-4">
-        <header className="bg-purple-700 text-white p-4 sm:p-6 rounded-2xl shadow-md flex items-center space-x-4">
-          <div className="bg-purple-600 p-2 sm:p-4 rounded-full">
-            <Calculator size={32} />
+        <header className="bg-purple-700 text-white p-4 sm:p-6 rounded-2xl shadow-md flex items-center space-x-4 space-y-1 flex-wrap">
+          <div className="flex items-center space-x-4">
+            <div className="bg-purple-600 p-2 sm:p-4 rounded-full">
+              <Calculator size={32} />
+            </div>
+            <div className="shrink-0">
+              <h1 className="text-2xl font-bold">Fuel Cost Calculator</h1>
+            </div>
           </div>
-          <div>
-            <h1 className="text-2xl font-bold">Fuel Cost Calculator</h1>
+          <div className="flex grow justify-end px-2">
+            <label className="flex items-center gap-2 text-sm text-slate-200 cursor-pointer hover:text-white transition-colors">
+              <input
+                type="checkbox"
+                checked={rememberSettings}
+                onChange={(e) => setRememberSettings(e.target.checked)}
+                className="accent-pink-500 w-4 h-4 rounded cursor-pointer"
+              />
+              Remember settings between sessions
+            </label>
           </div>
         </header>
 
@@ -250,18 +263,6 @@ function App() {
                 </div>
               ))}
             </div>
-          </div>
-
-          <div className="sm:col-span-2 flex justify-end px-2 order-3">
-            <label className="flex items-center gap-2 text-sm text-slate-600 cursor-pointer hover:text-purple-700 transition-colors">
-              <input
-                type="checkbox"
-                checked={rememberSettings}
-                onChange={(e) => setRememberSettings(e.target.checked)}
-                className="accent-pink-500 w-4 h-4 rounded text-purple-600 focus:ring-purple-500 cursor-pointer"
-              />
-              Remember settings between sessions
-            </label>
           </div>
         </div>
 
